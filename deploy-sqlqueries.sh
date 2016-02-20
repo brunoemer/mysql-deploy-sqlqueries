@@ -12,12 +12,18 @@ if [ -f $FILE ]; then
 fi
 
 for f in $(ls $SQL_DIR/*.sql); do
-	version_new=$(echo "$f" |cut -d"/" -f2 |cut -d"." -f1)
-	if [ "$version_new" -gt "$VERSION" ]; then
+	v=$(echo "$f" |cut -d"/" -f2 |cut -d"." -f1)
+	if [ "$v" -gt "$VERSION" ]; then
 		echo "Executando $f"
 		mysql $DBNAME < $f
-		echo "Resultado: "
+		if [ $? -eq 0 ]; then
+			echo "OK $?"
+		else
+			echo "Erro $? ao executar $f"
+			break;
+		fi
 	fi
+	version_new=$v
 done
 
 
