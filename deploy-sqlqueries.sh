@@ -1,12 +1,13 @@
 #!/bin/bash
 
 # Author: Bruno Emer
+# TODO: adicionar parametros para vars
 
 DBNAME="lojas872_db"
-FILE="version"
+FILE="mysql-deploy-version"
 SQL_DIR="_sql"
 
-VERSION=""
+VERSION="0"
 if [ -f $FILE ]; then
 	VERSION=$(cat $FILE)
 fi
@@ -25,6 +26,5 @@ for f in $(ls $SQL_DIR/*.sql); do
 	fi
 	version_new=$v
 done
-
 
 echo $version_new > $FILE
