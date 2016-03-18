@@ -12,6 +12,8 @@ if [ -f $FILE ]; then
 	VERSION=$(cat $FILE)
 fi
 
+echo "Run mysql-deploy-sqlqueries:"
+
 for f in $(ls $SQL_DIR/*.sql); do
 	v=$(echo "$f" |cut -d"/" -f2 |cut -d"." -f1)
 	if [ "$v" -gt "$VERSION" ]; then
@@ -23,8 +25,13 @@ for f in $(ls $SQL_DIR/*.sql); do
 			echo "Erro $? ao executar $f"
 			break;
 		fi
+                ex=1
 	fi
 	version_new=$v
 done
+
+if [ -z $ex ]; then
+        echo "Nothing to execute"
+fi
 
 echo $version_new > $FILE
