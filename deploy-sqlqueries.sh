@@ -3,9 +3,7 @@
 # Author: Bruno Emer
 # TODO: adicionar parametros para vars
 
-DBNAME="lojas872_db"
-FILE="mysql-deploy-version"
-SQL_DIR="_sql"
+. `dirname $0`/config.cfg;
 
 VERSION="0"
 if [ -f $FILE ]; then
